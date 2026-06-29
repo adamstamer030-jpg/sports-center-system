@@ -1,0 +1,91 @@
+/* ============================================================
+   الخطوط — مستضافة محليًا بالكامل (offline, مفيش أي استدعاء إنترنت)
+   ============================================================ */
+@import '@fontsource/ibm-plex-sans-arabic/400.css';
+@import '@fontsource/ibm-plex-sans-arabic/500.css';
+@import '@fontsource/ibm-plex-sans-arabic/600.css';
+@import '@fontsource/ibm-plex-sans-arabic/700.css';
+@import '@fontsource/noto-kufi-arabic/500.css';
+@import '@fontsource/noto-kufi-arabic/600.css';
+@import '@fontsource/noto-kufi-arabic/700.css';
+@import '@fontsource/noto-kufi-arabic/800.css';
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/500.css';
+@import '@fontsource/ibm-plex-mono/600.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   توكنز التصميم — برّا Tailwind كمان عشان أي حاجة Vanilla
+   ============================================================ */
+:root {
+  --ink: #14181c;
+  --paper: #f7f6f3;
+  --surface: #ffffff;
+  --line: #e4e1da;
+  --brand: #0f6b5c; /* قابل للتغيير لكل نظام عبر data-brand على html */
+  --radius: 10px;
+}
+
+/* أمثلة لتلوين كل نظام بهويته الخاصة مع نفس الهيكل (تُستخدم لاحقًا) */
+html[data-brand='clinic'] { --brand: #0f6b5c; }   /* تيل طبي */
+html[data-brand='gym']    { --brand: #b5562b; }   /* برتقالي حيوي */
+html[data-brand='pharma'] { --brand: #1f7a3d; }   /* أخضر صيدلي */
+html[data-brand='school'] { --brand: #2453a6; }   /* أزرق تعليمي */
+html[data-brand='store']  { --brand: #6a3fa0; }   /* بنفسجي تجاري */
+html[data-brand='hr']     { --brand: #3c5470; }   /* كحلي مؤسسي */
+
+* {
+  border-color: var(--line);
+}
+
+html, body, #root {
+  height: 100%;
+  overflow-x: hidden; /* حماية إضافية: أي عنصر طويل بدون كسر سطر يفضل محبوس جوه النافذة مش طافح برّاها */
+}
+
+body {
+  background: var(--paper);
+}
+
+/* أرقام دايمًا لاتينية وبخط mono ثابت العرض — توقيع التمبلت البصري */
+.tnum {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-feature-settings: 'tnum' 1;
+  letter-spacing: 0;
+  unicode-bidi: plaintext;
+  direction: ltr;
+  display: inline-block;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--brand) 25%, transparent);
+}
+
+/* سكرول بار هادي يناسب تطبيق مكتبي */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: #d7d3ca;
+  border-radius: 10px;
+  border: 2px solid var(--paper);
+}
+::-webkit-scrollbar-thumb:hover { background: #c3beb2; }
+
+/* فوكس واضح لإمكانية الوصول، بدون رينج أزرق افتراضي قبيح */
+:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* احترام تقليل الحركة */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

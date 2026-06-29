@@ -1,0 +1,96 @@
+{
+  "name": "sports-center",
+  "productName": "مركز التدريب الرياضي",
+  "version": "1.0.0",
+  "description": "نظام إدارة مركز تدريب رياضي (جيم/سباحة/كاراتيه/أي رياضة) - أعضاء، اشتراكات، خطط، مدربين، دفعات وتقارير - Electron + SQLite أوفلاين بالكامل",
+  "author": "Your Company",
+  "license": "UNLICENSED",
+  "main": "electron/main.js",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently -k -n VITE,ELECTRON -c blue,green \"vite\" \"wait-on tcp:5173 && cross-env NODE_ENV=development electron .\"",
+    "build:renderer": "vite build",
+    "rebuild:native": "electron-builder install-app-deps",
+    "pack": "npm run build:renderer && npm run rebuild:native && electron-builder --dir",
+    "build:win": "npm run build:renderer && npm run rebuild:native && electron-builder --win --x64",
+    "build:linux": "npm run build:renderer && npm run rebuild:native && electron-builder --linux",
+    "build:mac": "npm run build:renderer && npm run rebuild:native && electron-builder --mac"
+  },
+  "dependencies": {
+    "@fontsource/ibm-plex-mono": "^5.2.7",
+    "@fontsource/ibm-plex-sans-arabic": "^5.2.9",
+    "@fontsource/noto-kufi-arabic": "^5.2.9",
+    "better-sqlite3": "^11.3.0",
+    "bcryptjs": "^2.4.3",
+    "dayjs": "^1.11.13",
+    "lucide-react": "^0.441.0",
+    "node-machine-id": "^1.1.12",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.2",
+    "zustand": "^4.5.5"
+  },
+  "devDependencies": {
+    "@electron/rebuild": "^3.6.1",
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.20",
+    "concurrently": "^9.0.1",
+    "cross-env": "^7.0.3",
+    "electron": "^30.5.1",
+    "electron-builder": "^24.13.3",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.13",
+    "vite": "^5.4.8",
+    "wait-on": "^8.0.1"
+  },
+  "build": {
+    "appId": "com.yourcompany.sportscenter",
+    "productName": "مركز التدريب الرياضي",
+    "copyright": "Copyright © 2026",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "electron/**/*",
+      "dist-renderer/**/*",
+      "package.json"
+    ],
+    "extraMetadata": {
+      "main": "electron/main.js"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.ico",
+      "requestedExecutionLevel": "asInvoker"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "build/icon.ico",
+      "installerLanguages": [
+        "ar"
+      ],
+      "language": "1025",
+      "artifactName": "${productName}-Setup-${version}.${ext}"
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "build/icon.png",
+      "category": "Office"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "build/icon.icns",
+      "category": "public.app-category.business"
+    }
+  }
+}
